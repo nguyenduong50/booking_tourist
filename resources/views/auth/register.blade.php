@@ -17,8 +17,8 @@
                                 @endforeach    
                         </div>
                     @endif
-                    <input type="email" placeholder="Nhập email" name="email" minlength="11" />      
-                    <input type="text" placeholder="Nhập tên người dùng" name="name" minlength="5" />             
+                    <input type="email" placeholder="Nhập email" name="email" minlength="11" autocomplete="off" />      
+                    <input type="text" placeholder="Nhập tên người dùng" name="name" minlength="5" autocomplete="off" />             
                     <input type="password"  placeholder="Mật khẩu" name="password" minlength="8" />
                     <input type="password"  placeholder="Nhập lại mật khẩu" name="password_confirmation" minlength="8" />
                 </div>

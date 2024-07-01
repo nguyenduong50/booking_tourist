@@ -1,0 +1,6 @@
+.alert-notification{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 10;
+}

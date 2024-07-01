@@ -22,7 +22,7 @@ Auth::routes([
     'verify' => true
 ]);
 
-
+Route::get('/verify', [UserController::class, 'verify']);
 
 Route::middleware(['auth', 'roleAdmin'])->group(function () {
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

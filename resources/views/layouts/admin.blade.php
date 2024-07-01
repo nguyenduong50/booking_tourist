@@ -14,6 +14,7 @@
         <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
         <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+        <link href="{{asset('css/style-admin.css')}}" rel="stylesheet" type="text/css" />
 
         <!-- Table datatable css -->
         <link href="{{asset('assets/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
@@ -301,5 +302,8 @@
         <!-- Bootstrap Seletect Input -->
         <script src="{{asset('assets/libs/select2/select2.min.js')}}"></script>
         <script src="{{asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+
+        <!-- Alert timeout -->
+         <script src="{{asset('js/script-admin.js')}}"></script>
     </body>
 </html>

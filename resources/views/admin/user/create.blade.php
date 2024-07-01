@@ -3,31 +3,44 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
+                @if($errors->any())
+                    <div class="alert-notification">
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ $error }}
+                            </div>
+                        @endforeach  
+                    </div>  
+                @endif
                 <div class="card-box table-responsive">
                     <h4 class="header-title pb-2 border-bottom"><b>Create New User</b></h4>
 
-                    <form action="" class="form-horizontal mt-4">
+                    <form action="{{route('admin_user.store')}}" method="POST" class="form-horizontal mt-4" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="form-group row">
                                     <label class="col-md-2 control-label">Name</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" name="name">
+                                        <input type="text" class="form-control" name="name" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-2 control-label">Email</label>
                                     <div class="col-md-10">
-                                        <input type="email" class="form-control" name="email">
+                                        <input type="email" class="form-control" name="email" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-2 control-label">Role</label>
-                                    <div class="col-md-10">
-                                        <select class="selectpicker show-tick" data-style="btn-success">
-                                            <option>Admin</option>
-                                            <option>Telesale</option>
-                                            <option>Client</option>
+                                    <div class="col-md-2">
+                                        <select class="selectpicker show-tick" data-style="btn-success" name="role_id">
+                                            @foreach($roles as $role)
+                                                <option value="{{$role->id}}" selected>{{$role->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -60,7 +73,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary waves-effect width-md waves-light">Create</button>
+                            <button class="btn btn-primary waves-effect width-md waves-light" type="submit">Create</button>
                         </div>
                     </form>
                 </div>

@@ -18,7 +18,7 @@
                                 @endforeach    
                         </div>
                     @endif
-                    <input type="email" placeholder="Enter Email" name="email" minlength="11" />                  
+                    <input type="email" placeholder="Enter Email" name="email" minlength="11" autocomplete="off"/>                  
                     <input type="password"  placeholder="Mật khẩu" name="password" minlength="6" />
                     <div class="sub-login-mid">
                         <p><a href="{{route('register')}}">Đăng kí</a></p>
