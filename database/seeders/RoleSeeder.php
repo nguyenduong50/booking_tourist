@@ -22,6 +22,10 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
+            'name' => 'writer',
+        ]);
+
+        Role::create([
             'name' => 'client',
         ]);
     }

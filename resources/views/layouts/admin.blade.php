@@ -28,6 +28,13 @@
         <!-- Bootstrap Select Input -->
         <link href="{{asset('assets/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/libs/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css">
+
+        <link href="{{asset('assets\libs\quill\quill.core.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets\libs\quill\quill.bubble.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets\libs\quill\quill.snow.css')}}" rel="stylesheet" type="text/css">
+
+         <!-- CK Editor -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     </head>
 
     <body>
@@ -67,10 +74,17 @@
                             <div class="dropdown-divider"></div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a 
+                                href="javascript:void(0);" 
+                                class="dropdown-item notify-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            >
                                 <i class="mdi mdi-logout-variant"></i>
                                 <span>Logout</span>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
                     </li>
 
@@ -144,8 +158,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="ui-buttons.html">List</a></li>
-                                    <li><a href="admin-sweet-alert2.html">Create new</a></li>
+                                    <li><a href="{{route('admin_post.index')}}">List</a></li>
+                                    <li><a href="{{route('admin_post.create')}}">Create new</a></li>
                                     <li><a href="admin-widgets.html">Trash</a></li>
                                 </ul>
                             </li>
@@ -208,6 +222,41 @@
                 </footer>
             </div>
 
+            <!-- Alert -->
+            @if($errors->any())
+                <div class="alert-notification">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            {{ $error }}
+                        </div>
+                    @endforeach  
+                </div>  
+            @endif
+            
+            @if(session('error'))
+                <div class="alert-notification">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
+
+            @if(session('status'))
+                <div class="alert-notification">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ session('status') }}
+                    </div>
+                </div>
+            @endif
         </div>
 
         <!-- Right Sidebar -->
@@ -304,6 +353,23 @@
         <script src="{{asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
 
         <!-- Alert timeout -->
-         <script src="{{asset('js/script-admin.js')}}"></script>
+        <script src="{{asset('js/script-admin.js')}}"></script>
+
+        <script src="{{asset('assets\libs\quill\quill.min.js')}}"></script>
+        <script src="{{asset('assets\libs\katex\katex.min.js')}}"></script>
+        <script src="{{asset('assets\js\pages\form-quilljs.init.js')}}"></script>
+
+        <!-- CK Editor -->
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#content-post' ) )
+                // .then( editor => {
+                //     editor.ui.view.editable.element.style.height = '500px';
+                //     editor.ui.view.editable.element.style.overFlowY = 'scroll';
+                // } )
+                .catch( error => {
+                    console.log( error );
+                } );
+        </script>
     </body>
 </html>

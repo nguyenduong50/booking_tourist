@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,5 @@ Route::get('/verify', [UserController::class, 'verify']);
 Route::middleware(['auth', 'roleAdmin'])->group(function () {
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('/admin/user', UserController::class)->names('admin_user');
-
+    Route::resource('/admin/post', PostController::class)->names('admin_post');
 });

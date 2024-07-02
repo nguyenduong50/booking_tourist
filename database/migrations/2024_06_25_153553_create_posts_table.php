@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
-            $table->foreignId('author')->constrained('users');
-            $table->boolean('featured');
+            $table->text('content')->default('');
+            $table->foreignId('user_id')->default(1)->constrained('users');
+            $table->boolean('featured')->default(0);
             $table->string('destination')->nullable();
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('travel_packages', function (Blueprint $table) {
             $table->id();
-            $table->string('destination', 50);
+            $table->string('name', 50);
+            $table->string('thumbnail');
             $table->string('description', 200);
             $table->integer('rate');
             $table->bigInteger('orginal_price')->unsigned();

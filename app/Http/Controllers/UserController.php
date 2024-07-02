@@ -45,15 +45,6 @@ class UserController extends Controller
 
         if($get_image)
         {
-            //Delete old Image
-            $path_unlink = 'img/user/'.$user->avatar;
-            
-            if(file_exists($path_unlink) && $path_unlink !== 'img/user/')
-            {
-                unlink($path_unlink);
-            }
-                
-            //Add Image
             $path = 'img/user/';
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.',$get_name_image));

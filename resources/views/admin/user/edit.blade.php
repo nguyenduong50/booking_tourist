@@ -3,32 +3,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-
-                <!-- Alert Errors -->
-                @if($errors->any())
-                    <div class="alert-notification">
-                        @foreach($errors->all() as $error)
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                {{ $error }}
-                            </div>
-                        @endforeach  
-                    </div>  
-                @endif
-
-                <!-- Alert Error password confirm -->
-                @if (session('error'))
-                    <div class="alert-notification">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            {{ session('error') }}
-                        </div>
-                    </div> 
-                @endif
                 <div class="card-box table-responsive">
                     <h4 class="header-title pb-2 border-bottom"><b>Edit User</b></h4>
 

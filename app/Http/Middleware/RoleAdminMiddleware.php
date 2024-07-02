@@ -16,9 +16,9 @@ class RoleAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role_id === 3)
+        if(auth()->user()->Role->name === 'client')
         {
-            return redirect('/');
+            return abort(403);
         }
 
         return $next($request);

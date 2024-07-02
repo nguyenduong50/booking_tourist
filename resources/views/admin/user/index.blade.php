@@ -5,14 +5,6 @@
             <div class="col-sm-12">
                 <div class="card-box table-responsive">
                     <h4 class="header-title"><b>List User</b></h4>
-
-                    <!-- Alert Status -->
-                    @if (session('status'))
-                        <div class="alert bg-success alert-status"width="20%" role="alert">
-                            <h5>{{ session('status') }}</h5>
-                        </div>
-                    @endif
-
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
@@ -55,11 +47,44 @@
                                     <a 
                                         class="btn btn-danger btn-sm text-white"
                                         data-toggle="modal"
-                                        data-target=".bs-example-modal-sm"
+                                        data-target=".{{'bs-modal-'.$user->id}}"
                                         href="javascript:void()"
                                     >
                                         Delete
                                     </a>
+                                    <div class="modal fade {{'bs-modal-'.$user->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content pb-3">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title mt-0">Delete user</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body d-flex flex-column">
+                                                    <span>Are you delete this user?</span>
+                                                    <span>Name: {{$user->name}}</span>
+                                                    <span>Name: {{$user->email}}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-end px-3">
+                                                    <button class="btn btn-secondary btn-sm" type="button" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                                    <button 
+                                                        class="btn btn-danger btn-sm" 
+                                                        style="margin-left: 5px"
+                                                        type="button"
+                                                        onclick="document.getElementById('{{'form-delete-'.$user->id}}').submit()"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <form action="{{route('admin_user.destroy', $user->id)}}" method="POST" id="{{'form-delete-'.$user->id}}" class="d-none">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </td>
                             </tr>    
                             @endforeach                   
@@ -70,43 +95,4 @@
         </div>
     </div>
 </div>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content pb-3">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0">Small modal</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body d-flex flex-column">
-                <span>Are you delete this User?</span>
-                <span>Name: {{$user->name}}</span>
-                <span>Name: {{$user->email}}</span>
-            </div>
-            <div class="d-flex justify-content-end px-3">
-                <button class="btn btn-secondary btn-sm" type="button" class="close" data-dismiss="modal" aria-label="Close">Cancel</button>
-                <button 
-                    class="btn btn-danger btn-sm" 
-                    style="margin-left: 5px"
-                    onclick="submitDeleteUser()"
-                >
-                    Delete
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<form action="{{route('admin_user.destroy', $user->id)}}" method="POST" id="form-delete-user">
-    @method('DELETE')
-    @csrf
-</form>
-
-<script>
-    const submitDeleteUser = () => {
-        const formDeleteUser = document.getElementById('form-delete-user');
-        formDeleteUser.submit();
-    }
-</script>
 @endsection

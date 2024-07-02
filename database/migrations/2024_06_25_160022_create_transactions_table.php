@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('travel_packages_id')->constrained('travel_packages');
             $table->integer('tourists_number');
-            $table->string('client_name', 50);
             $table->string('phone_number', 11);
             $table->timestamps();
         });
