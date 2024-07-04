@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
+use Str;
 
 class TravelPackageController extends Controller
 {
@@ -12,7 +13,8 @@ class TravelPackageController extends Controller
      */
     public function index()
     {
-        //
+        $travelPackages = TravelPackage::orderBy('id', 'ASC')->get();
+        return view('admin.travel_package.index', compact(['travelPackages']));
     }
 
     /**
@@ -20,7 +22,7 @@ class TravelPackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.travel_package.create');
     }
 
     /**
@@ -28,7 +30,24 @@ class TravelPackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $travelPackage = new TravelPackage;
+        $travelPackage->fill($request->all());
+
+        //Save thumbnail
+        $get_image = $request->thumbnail;
+
+        if($get_image)
+        {
+            $path = 'img/travel_package/';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.Str::random(10).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move($path,$new_image);
+            $travelPackage->thumbnail = $new_image;
+        }
+
+        $travelPackage->save();
+        return redirect('/admin/travel_package')->with('status', 'Create Travel Package successfully');
     }
 
     /**

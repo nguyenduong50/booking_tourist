@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class TravelPackage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'rate',
+        'original_price',
+        'current_price',
+        'description',
+        'day',
+        'night'
+    ];
 }

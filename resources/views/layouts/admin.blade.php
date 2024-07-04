@@ -138,6 +138,7 @@
                                 </ul>
                             </li>
 
+                            @if(Auth::user()->Role->name === 'admin')
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="mdi mdi-invert-colors"></i>
@@ -150,6 +151,7 @@
                                     <li><a href="ui-typography.html">Trash</a></li>
                                 </ul>
                             </li>
+                            @endif
 
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
@@ -171,8 +173,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="ui-buttons.html">List</a></li>
-                                    <li><a href="email-inbox.html">Create new</a></li>
+                                    <li><a href="{{route('admin_travel_package.index')}}">List</a></li>
+                                    <li><a href="{{route('admin_travel_package.create')}}">Create new</a></li>
                                     <li><a href="email-read.html">Trash</a></li>
                                 </ul>
                             </li>

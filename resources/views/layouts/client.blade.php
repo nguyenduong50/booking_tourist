@@ -14,9 +14,12 @@
         <link rel="stylesheet" href="{{asset('css/header.css')}}" />
         <link rel="stylesheet" href="{{asset('css/content.css')}}" />
         <link rel="stylesheet" href="{{asset('css/slider.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/news.css')}}" />
         <link rel="stylesheet" href="{{asset('css/booking.css')}}" />
         <link rel="stylesheet" href="{{asset('css/blog.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/goidulich.css')}}" />
         <link rel="stylesheet" href="{{asset('css/footer.css')}}" />
+
     </head>
     <body>
         <div id="main">
@@ -38,7 +41,7 @@
                             </a>
                             <ul class="subnav">
                                 <li><a href="booking.html">Booking</a></li>
-                                <li><a href="goidulich.html">Gói du lịch</a></li>
+                                <li><a href="{{url('/travel_package')}}">Gói du lịch</a></li>
                             </ul>
                         </li>
                         <li><a href="blog.html">blog</a></li>

@@ -13,6 +13,11 @@ use App\Jobs\SendMailCreateUserJob;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('roleAdminUser');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->string('description', 200);
             $table->integer('rate');
-            $table->bigInteger('orginal_price')->unsigned();
+            $table->bigInteger('original_price')->unsigned();
             $table->bigInteger('current_price')->unsigned();
             $table->integer('day')->unsigned();
             $table->integer('night')->unsigned();
