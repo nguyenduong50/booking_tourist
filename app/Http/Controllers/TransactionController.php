@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('roleTelesale');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $transactions = Transaction::orderBy('created_at', 'DESC')->get();
+        return view('admin.transaction.index', compact(['transactions']));
     }
 
     /**
@@ -60,6 +66,29 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function confirm($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        $transaction->status = 'confirmed';
+
+        $transaction->save();
+
+        return redirect()->back();
+    }
+
+    public function cancel($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        $transaction->status = 'cancel';
+
+        $transaction->save();
+
+        return redirect()->back();
     }
 }

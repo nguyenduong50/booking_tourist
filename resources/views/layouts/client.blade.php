@@ -10,15 +10,15 @@
         <link rel="stylesheet" href="icon/themify-icons/themify-icons.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="shortcut icon" href="img/GoodTrip5.png" />
-        <link rel="stylesheet" href="{{asset('css/main.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/header.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/content.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/slider.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/news.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/booking.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/blog.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/goidulich.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/footer.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/main.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/header.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/content.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/slider.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/news.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/booking.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/blog.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/goidulich.css')}}" />
+        <link rel="stylesheet" href="{{asset('frontend/client/css/footer.css')}}" />
 
     </head>
     <body>
@@ -44,8 +44,8 @@
                                 <li><a href="{{url('/travel_package')}}">Gói du lịch</a></li>
                             </ul>
                         </li>
-                        <li><a href="blog.html">blog</a></li>
-                        <li><a href="hotro.html">Hỗ trợ</a></li>
+                        <li><a href="/">blog</a></li>
+                        <li><a href="{{url('/transaction')}}">Tour đã đặt</a></li>
                     </ul>
 
                     <!-- User -->

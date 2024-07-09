@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('travel_packages_id')->constrained('travel_packages');
+            $table->foreignId('travel_package_id')->constrained('travel_packages');
             $table->integer('tourists_number');
             $table->string('phone_number', 11);
+            $table->date('date_start');
+            $table->enum('status', ['booked', 'confirmed', 'cancel'])->default('booked');
             $table->timestamps();
         });
     }

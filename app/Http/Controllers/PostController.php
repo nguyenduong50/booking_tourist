@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Str;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('roleWriter');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -34,26 +42,37 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $post = new Post;
-        $post->fill($request->all());
-        $post->user_id = auth()->user()->id;
+        DB::beginTransaction();
 
-        //Save thumbnail
-        $get_image = $request->thumbnail;
+        try {
+            $post = new Post;
+            $post->fill($request->all());
+            $post->user_id = auth()->user()->id;
+    
+            //Save thumbnail
+            $get_image = $request->thumbnail;
+    
+            if($get_image)
+            {
+                $path = 'img/post/';
+                $get_name_image = $get_image->getClientOriginalName();
+                $name_image = current(explode('.',$get_name_image));
+                $new_image = $name_image.Str::random(10).'.'.$get_image->getClientOriginalExtension();
+                $get_image->move($path,$new_image);
+                $post->thumbnail = $new_image;
+            }
+    
+            $post->save();
 
-        if($get_image)
-        {
-            $path = 'img/post/';
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = $name_image.Str::random(10).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $post->thumbnail = $new_image;
+            DB::commit();         
+        }
+        catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception('Transaction failed: ' . $e->getMessage());
         }
 
-        $post->save();
         return redirect('/admin/post')->with('status', 'Create post successfully');
     }
 
@@ -82,7 +101,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->fill($request->all());

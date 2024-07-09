@@ -23,25 +23,30 @@
     <div class="packages">
         <div class="box-container">
             @foreach($travel_packages as $travel_package)
-            <div class="box">
-                <img src="{{'img/travel_package/'.$travel_package->thumbnail}}" alt="" />
-                <div class="content">
-                    <h3><i class="fas fa-map-marker-alt"></i> {{$travel_package->name}}</h3>
-                    <p>{{$travel_package->description}}</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+                <div class="box">
+                    <img src="{{'img/travel_package/'.$travel_package->thumbnail}}" alt="" />
+                    <div class="content">
+                        <h3><i class="fas fa-map-marker-alt"></i> {{$travel_package->name}}</h3>
+                        <p>{{$travel_package->description}}</p>
+                        <div class="stars">
+                            @for($i = 1; $i <= $travel_package->rate; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                            @for($i = $travel_package->rate + 1; $i <= 5; $i++)
+                                <i class="far fa-star"></i>
+                            @endfor
+                        </div>
+                        <div class="price">
+                            {{number_format($travel_package->current_price, 0, ',', '.')}} VND 
+                            <span> {{number_format($travel_package->original_price, 0, ',', '.')}} VND</span>
+                        </div>
+                        <form action="{{url('/booking-page')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="travel_package_id" value="{{$travel_package->id}}">
+                            <button class="btn" type="submit">Đặt ngay</button>
+                        </form>
                     </div>
-                    <div class="price">
-                        {{number_format($travel_package->current_price, 0, ',', '.')}} VND 
-                        <span> {{number_format($travel_package->original_price, 0, ',', '.')}} VND</span>
-                    </div>
-                    <a href="booking.html" class="btn">Đặt ngay</a>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Transaction;
 
 class TravelPackage extends Model
 {
@@ -18,4 +19,9 @@ class TravelPackage extends Model
         'day',
         'night'
     ];
+
+    public function Transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

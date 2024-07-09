@@ -1,6 +1,6 @@
 @extends('layouts.auth') 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/login.css')}}" />
+<link rel="stylesheet" href="{{asset('frontend/client/css/login.css')}}" />
 <div id="login">
     <div class="login-banner">
         <div class="uilogin">

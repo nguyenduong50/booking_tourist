@@ -11,27 +11,27 @@
         <link rel="shortcut icon" href="assets\images\favicon.ico" />
 
         <!-- App css -->
-        <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
-        <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
-        <link href="{{asset('css/style-admin.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('frontend/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+        <link href="{{asset('frontend/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('frontend/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+        <link href="{{asset('frontend/admin/css/style-admin.css')}}" rel="stylesheet" type="text/css" />
 
         <!-- Table datatable css -->
-        <link href="{{asset('assets/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/fixedHeader.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/scroller.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/dataTables.colVis.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/fixedHeader.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/scroller.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/dataTables.colVis.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
 
         <!-- Bootstrap Select Input -->
-        <link href="{{asset('assets/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/libs/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css">
 
-        <link href="{{asset('assets\libs\quill\quill.core.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets\libs\quill\quill.bubble.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets\libs\quill\quill.snow.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/quill/quill.core.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/quill/quill.bubble.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/quill/quill.snow.css')}}" rel="stylesheet" type="text/css">
 
          <!-- CK Editor -->
         <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
@@ -99,12 +99,12 @@
                 <div class="logo-box">
                     <a href="/admin" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="{{asset('assets\images\logo-light.png')}}" alt="" height="18" />
+                            <img src="{{asset('frontend/admin/images/logo-light.png')}}" alt="" height="18" />
                             <!-- <span class="logo-lg-text-light">Zircos</span> -->
                         </span>
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">Z</span> -->
-                            <img src="{{asset('assets\images\logo-sm.png')}}" alt="" height="24" />
+                            <img src="{{asset('frontend/admin/images/logo-sm.png')}}" alt="" height="24" />
                         </span>
                     </a>
                 </div>
@@ -153,6 +153,7 @@
                             </li>
                             @endif
 
+                            @if(Auth::user()->Role->name === 'writer' || Auth::user()->Role->name === 'admin')
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="mdi mdi-layers"></i>
@@ -165,6 +166,7 @@
                                     <li><a href="admin-widgets.html">Trash</a></li>
                                 </ul>
                             </li>
+                            @endif
 
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
@@ -174,11 +176,14 @@
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="{{route('admin_travel_package.index')}}">List</a></li>
+                                    @if(Auth::user()->Role->name === 'admin')
                                     <li><a href="{{route('admin_travel_package.create')}}">Create new</a></li>
                                     <li><a href="email-read.html">Trash</a></li>
+                                    @endif
                                 </ul>
                             </li>
 
+                            @if(Auth::user()->Role->name === 'telesale' || Auth::user()->Role->name === 'admin')
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="mdi mdi-heart-outline"></i>
@@ -186,9 +191,10 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="ui-buttons.html">List</a></li>
+                                    <li><a href="{{route('admin_transaction.index')}}">List</a></li>
                                 </ul>
-                            </li>                                                      
+                            </li>   
+                            @endif                                                   
                         </ul>
                     </div>
                     <!-- End Sidebar -->
@@ -315,51 +321,51 @@
         <!-- <a href="javascript:void(0);" class="right-bar-toggle demos-show-btn"> <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos </a> -->
 
         <!-- Vendor js -->
-        <script src="{{asset('assets/js/vendor.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/vendor.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/morris-js/morris.min.js')}}"></script>
-        <script src="{{asset('assets/libs/raphael/raphael.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/morris-js/morris.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/raphael/raphael.min.js')}}"></script>
 
-        <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/pages/dashboard.init.js')}}"></script>
 
         <!-- App js -->
-        <script src="{{asset('assets/js/app.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/app.min.js')}}"></script>
 
         <!-- Datatable plugin js -->
-        <script src="{{asset('assets/libs/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/datatables/dataTables.responsive.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/responsive.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/responsive.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/buttons.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/datatables/buttons.html5.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/buttons.print.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/datatables/dataTables.keyTable.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/dataTables.fixedHeader.min.js')}}"></script>
-        <script src="{{asset('assets/libs/datatables/dataTables.scroller.min.js')}}"></script>
-        <script src="assets/libs/datatables/dataTables.fixedColumns.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.keyTable.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.fixedHeader.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.scroller.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/datatables/dataTables.fixedColumns.min.js')}}"></script>
 
-        <script src="{{asset('assets/libs/jszip/jszip.min.js')}}"></script>
-        <script src="{{asset('assets/libs/pdfmake/pdfmake.min.js')}}"></script>
-        <script src="{{asset('assets/libs/pdfmake/vfs_fonts.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/jszip/jszip.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/pdfmake/pdfmake.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/pdfmake/vfs_fonts.js')}}"></script>
 
         <!-- Datatables init -->
-        <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/pages/datatables.init.js')}}"></script>
 
         <!-- Bootstrap Seletect Input -->
-        <script src="{{asset('assets/libs/select2/select2.min.js')}}"></script>
-        <script src="{{asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/select2/select2.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
 
         <!-- Alert timeout -->
-        <script src="{{asset('js/script-admin.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/script-admin.js')}}"></script>
 
-        <script src="{{asset('assets\libs\quill\quill.min.js')}}"></script>
-        <script src="{{asset('assets\libs\katex\katex.min.js')}}"></script>
-        <script src="{{asset('assets\js\pages\form-quilljs.init.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/quill/quill.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/katex/katex.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/pages/form-quilljs.init.js')}}"></script>
 
         <!-- CK Editor -->
         <script>

@@ -52,7 +52,7 @@
 </div>
 
 <!-- Feature Articles -->
-<div id="blog">
+<div id="blog" style="margin-top: 300px">
     <!-- hEADER OF BLOG -->
     <div class="header">
         <div class="introduct">
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-    <!-- END HEADER OF BLOG -->
+
     <div class="container-blog center">
         <div class="container-header">
             <a href="blog.html" class="btn-more">Xem tất cả >></a>

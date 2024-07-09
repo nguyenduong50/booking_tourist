@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleAdminUserMiddleware
+class RoleWriterMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,10 @@ class RoleAdminUserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->Role->name !== 'admin'){
+        if(auth()->user()->Role->name !== 'admin' && auth()->user()->Role->name !== 'writer'){
             return abort(403);
         }
-        
+
         return $next($request);
     }
 }

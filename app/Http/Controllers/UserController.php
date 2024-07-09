@@ -10,12 +10,13 @@ use Carbon\Carbon;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Jobs\SendMailCreateUserJob;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('roleAdminUser');
+        $this->middleware('roleUser');
     }
 
     /**
@@ -41,27 +42,38 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user = new User;
-        $user->fill($request->all());
-        $user->remember_token = Str::random(20);
+        DB::beginTransaction();
 
-        //Add new Image 
-        $get_image = $request->avatar;
+        try {
+            $user = new User;
+            $user->fill($request->all());
+            $user->remember_token = Str::random(20);
+    
+            //Add new Image 
+            $get_image = $request->avatar;
+    
+            if($get_image)
+            {
+                $path = 'img/user/';
+                $get_name_image = $get_image->getClientOriginalName();
+                $name_image = current(explode('.',$get_name_image));
+                $new_image = $name_image.Str::random(10).'.'.$get_image->getClientOriginalExtension();
+                $get_image->move($path,$new_image);
+                $user->avatar = $new_image;
+            }
+    
+            //1. Save User
+            $user->save();
+    
+            //2. Send mail
+            SendMailCreateUserJob::dispatch($user->id);
 
-        if($get_image)
-        {
-            $path = 'img/user/';
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = $name_image.Str::random(10).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $user->avatar = $new_image;
+            DB::commit();
         }
-
-        $user->save();
-
-        // Send mail
-        SendMailCreateUserJob::dispatch($user->id);
+        catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception('Transaction failed: ' . $e->getMessage());
+        }
 
         return redirect('/admin/user')->with('status', 'Create new user successfully');
     }

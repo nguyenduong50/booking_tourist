@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
 use Str;
+use App\Http\Requests\StoreTravelPackageRequest;
 
 class TravelPackageController extends Controller
 {
@@ -22,13 +23,20 @@ class TravelPackageController extends Controller
      */
     public function create()
     {
-        return view('admin.travel_package.create');
+        if(auth()->user()->can('create', TravelPackage::class))
+        {
+            return view('admin.travel_package.create');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'You do not have the right create travel package');
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTravelPackageRequest $request)
     {
         $travelPackage = new TravelPackage;
         $travelPackage->fill($request->all());
@@ -61,9 +69,15 @@ class TravelPackageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TravelPackage $travelPackage)
+    public function edit($id)
     {
-        //
+        $travelPackage = TravelPackage::findOrFail($id);
+        if(auth()->user()->can('update')){
+            return view('admin.travel_package.edit', compact(['travelPackage']));
+        }
+        else{
+            return redirect()->back()->with('error', "You do not have the right to edit travel package");
+        }
     }
 
     /**
@@ -77,8 +91,24 @@ class TravelPackageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TravelPackage $travelPackage)
+    public function destroy($id)
     {
-        //
+        $travelPackage = TravelPackage::findOrFail($id);
+        if(auth()->user()->can('update')){
+
+            $path_unlink = 'img/travel_package/'.$travelPackage->thumbnail;
+
+            if(file_exists($path_unlink) && $path_unlink !== 'img/travel_package/')
+            {
+                unlink($path_unlink);
+            }
+
+            $travelPackage->delete();
+
+            return redirect('/admin/travel_package')->with('status', "Delete successfully");
+        }
+        else{
+            return redirect()->back()->with('error', "You do not have the right to delete travel package");
+        }
     }
 }
