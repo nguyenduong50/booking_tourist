@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\TravelPackage;
+use App\Models\Transaction;
+use App\Models\Post;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $datetime_now = Carbon::now();
+        $countUser = User::count();
+        $countTravelPackage = TravelPackage::count();
+        $countTransaction = Transaction::count();
+        $countPost = Post::count();
+
+        $recentUser = User::take(5)->get();
+        $recentTransaction = Transaction::take(5)->get();
+
+        return view('admin.home', compact([
+            'datetime_now', 
+            'countUser',
+            'countTravelPackage',
+            'countTransaction',
+            'countPost',
+            'recentUser',
+            'recentTransaction'
+        ]));
     }
 }

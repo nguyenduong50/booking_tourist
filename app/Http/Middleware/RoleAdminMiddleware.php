@@ -16,7 +16,7 @@ class RoleAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->Role->name === 'client')
+        if(auth()->user()->Role->name === 'client' || auth()->user()->email_verified_at === null)
         {
             return abort(403);
         }

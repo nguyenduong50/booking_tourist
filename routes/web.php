@@ -20,7 +20,7 @@ use App\Http\Controllers\TransactionController;
 
 Route::get('/', [ClientController::class, 'Home']);
 Route::get('/travel_package', [ClientController::class, 'Travel_Package']);
-Route::post('/booking-page', [ClientController::class, 'Booking_Page'])->middleware('auth');
+Route::post('/booking-page', [ClientController::class, 'Booking_Page'])->middleware(['auth', 'verified']);
 Route::post('/booking', [ClientController::class, 'Booking'])->middleware('auth');
 Route::get('/transaction', [ClientController::class, 'Transaction'])->middleware('auth');
 

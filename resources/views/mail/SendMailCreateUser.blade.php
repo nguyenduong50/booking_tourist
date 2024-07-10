@@ -6,9 +6,10 @@
     <title>Quản trị máy tính</title>
 </head>
 <body>
-    <h1>Welcome New Telesale</h1>
+    <h1>Welcome New User</h1>
     <p>We have created a new account for you</p>
     <p>Email: {{$user->email}}</p>
+    <p>Role: {{$user->Role->name}}</p>
     <a href="{{url('/')}}/verify?token={{$user->remember_token}}&email={{$user->email}}">Kích hoạt</a>
 </body>
 </html>

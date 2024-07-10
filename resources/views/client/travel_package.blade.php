@@ -27,7 +27,7 @@
                     <img src="{{'img/travel_package/'.$travel_package->thumbnail}}" alt="" />
                     <div class="content">
                         <h3><i class="fas fa-map-marker-alt"></i> {{$travel_package->name}}</h3>
-                        <p>{{$travel_package->description}}</p>
+                        <p>{{$travel_package->description}}. {{$travel_package->day}}N-{{$travel_package->night}}D</p>
                         <div class="stars">
                             @for($i = 1; $i <= $travel_package->rate; $i++)
                                 <i class="fas fa-star"></i>
